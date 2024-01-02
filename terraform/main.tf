@@ -29,5 +29,5 @@ provider "github" {
 
 resource "github_repository" "repository" {
   name       = var.github_name
-  visibility = "private"
+  visibility = "public"
 }
