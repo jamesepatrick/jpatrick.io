@@ -5,3 +5,7 @@ tmp/
 
 ## Ignore local .terraform dir
 **/.terraform/*
+
+## Ignore secrets
+terraform/terraform.tfstate
+terraform/terraform.tfvars
