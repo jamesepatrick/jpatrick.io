@@ -17,8 +17,9 @@ variable "protonmail_dkim" {
   type        = string
   description = "Your Protonmail DKIM public key"
 }
+
 data "http" "external_ip" {
-  url = "https://ifconfig.co"
+  url = "http://ipv4.icanhazip.com"
 }
 
 provider "namecheap" {
