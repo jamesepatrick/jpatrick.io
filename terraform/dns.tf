@@ -18,6 +18,8 @@ variable "protonmail_dkim" {
   description = "Your Protonmail DKIM public key"
 }
 
+# If you are connecting from a new IP you may need setup a new whitelist IP
+# https://ap.www.namecheap.com/settings/tools/apiaccess/whitelisted-ips
 data "http" "external_ip" {
   url = "http://ipv4.icanhazip.com"
 }
