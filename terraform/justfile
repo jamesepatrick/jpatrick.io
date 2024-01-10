@@ -10,6 +10,9 @@ op-save-state:
 op-init-state:
     op document create --vault jpatrick.io ./terraform.tfstate
 
+init: op-inject op-load-state
+    terraform init -var-file=terraform.tfvars
+
 plan: op-inject op-load-state
     terraform plan -var-file=terraform.tfvars
 
