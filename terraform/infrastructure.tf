@@ -56,10 +56,15 @@ resource "hcloud_firewall" "firewall" {
   }
 }
 
+data "template_file" "user_data" {
+  template = file("scripts/cloud_init.yaml")
+}
+
 resource "hcloud_server" "node" {
   name         = "node"
   image        = "ubuntu-22.04"
   datacenter   = "ash-dc1"
   server_type  = "cpx11"
   firewall_ids = [hcloud_firewall.firewall.id]
+  user_data    = data.template_file.user_data.rendered
 }
