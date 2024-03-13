@@ -17,4 +17,4 @@ plan: op-inject op-load-state
     terraform plan -var-file=terraform.tfvars
 
 apply: op-inject op-load-state && op-save-state
-    terraform apply -var-file=terraform.tfvars
+    terraform apply -auto-approve -var-file=terraform.tfvars
