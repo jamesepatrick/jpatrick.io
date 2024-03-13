@@ -4,9 +4,13 @@ write_files:
   permissions: '0644'
   encoding: base64
   content: ${base64encode(host_file)}
-# temporary user. Used to have access to the machine during the transitive period while the machine is running infect
+- path: /etc/NIXOS_LUSTRATE
+  permissions: '0600'
+  content: |
+    /opt/infrastructure
 users:
   - default
+  # temporary user. Used to have access to the machine during the transitive period
   - name: terraform
     gecos: terraform
     group: terraform
@@ -16,6 +20,10 @@ users:
       - gh:jamesepatrick
     lock_passwd: false
 runcmd:
+  - >
+    git clone https://github.com/jamesepatrick/infrastructure /opt/infrastructure
+    ; cd /opt/infrastructure
+    ; git remote set-url origin git@github.com:jamesepatrick/infrastructure.git
   - >
     curl https://raw.githubusercontent.com/elitak/nixos-infect/master/nixos-infect
     | PROVIDER=hetznercloud NIXOS_IMPORT=./host.nix NIX_CHANNEL=nixos-unstable bash 2>&1
