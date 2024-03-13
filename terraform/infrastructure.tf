@@ -57,7 +57,10 @@ resource "hcloud_firewall" "firewall" {
 }
 
 data "template_file" "user_data" {
-  template = file("scripts/cloud_init.yaml")
+  template = file("cloud_init.yaml")
+  vars = {
+    host_file = file("nix/host.nix")
+  }
 }
 
 resource "hcloud_server" "node" {

@@ -1,0 +1,22 @@
+#cloud-config
+write_files:
+- path: /etc/nixos/host.nix
+  permissions: '0644'
+  encoding: base64
+  content: ${base64encode(host_file)}
+# temporary user. Used to have access to the machine during the transitive period while the machine is running infect
+users:
+  - default
+  - name: terraform
+    gecos: terraform
+    group: terraform
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    ssh_import_id:
+      - gh:jamesepatrick
+    lock_passwd: false
+runcmd:
+  - >
+    curl https://raw.githubusercontent.com/elitak/nixos-infect/master/nixos-infect
+    | PROVIDER=hetznercloud NIXOS_IMPORT=./host.nix NIX_CHANNEL=nixos-unstable bash 2>&1
+    | tee /tmp/infect.log
