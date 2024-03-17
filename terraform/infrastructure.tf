@@ -71,3 +71,12 @@ resource "hcloud_server" "node" {
   firewall_ids = [hcloud_firewall.firewall.id]
   user_data    = data.template_file.user_data.rendered
 }
+
+resource "hcloud_volume" "data" {
+  name              = "data"
+  size              = 10 #size in GB. Min is 10
+  server_id         = hcloud_server.node.id
+  automount         = true
+  format            = "ext4"
+  delete_protection = true
+}

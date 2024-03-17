@@ -53,6 +53,17 @@ in {
     zsh
   ];
 
+  fileSystems = {
+    "/" = {
+      device = "/dev/sda1";
+      fsType = "ext4";
+    };
+    "/data" = {
+      device = "/dev/disk/by-label/data";
+      fsType = "ext4";
+    };
+  };
+
   # networking
   networking = {
     defaultGateway.interface = "eth0";
