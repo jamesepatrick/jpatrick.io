@@ -59,7 +59,9 @@ resource "hcloud_firewall" "firewall" {
 data "template_file" "user_data" {
   template = file("cloud_init.yaml")
   vars = {
-    host_file = file("nix/host.nix")
+    host_file             = file("nix/host.nix")
+    tailscale_file        = file("nix/tailscale.nix")
+    tailscale_tailnet_key = tailscale_tailnet_key.prod.key
   }
 }
 

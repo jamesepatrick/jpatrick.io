@@ -4,10 +4,18 @@ write_files:
   permissions: '0644'
   encoding: base64
   content: ${base64encode(host_file)}
+- path: /etc/nixos/tailscale.nix
+  permissions: '0644'
+  encoding: base64
+  content: ${base64encode(tailscale_file)}
 - path: /etc/NIXOS_LUSTRATE
   permissions: '0600'
   content: |
     /opt/infrastructure
+    /etc/tailscale/authkey
+- path: /etc/tailscale/authkey
+  permissions: '0600'
+  content: "${tailscale_tailnet_key}"
 - path: /opt/disk_setup.sh
   permissions: '0755'
   content: |

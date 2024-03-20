@@ -10,8 +10,11 @@ terraform {
       version = ">= 2.0.0"
     }
     hcloud = {
-      source = "hetznercloud/hcloud"
+      source  = "hetznercloud/hcloud"
       version = "1.44.1"
+    }
+    tailscale = {
+      source = "tailscale/tailscale"
     }
   }
 }
