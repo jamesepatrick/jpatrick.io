@@ -56,12 +56,25 @@ resource "hcloud_firewall" "firewall" {
   }
 }
 
-data "template_file" "user_data" {
-  template = file("cloud_init.yaml")
-  vars = {
-    host_file             = file("nix/host.nix")
-    tailscale_file        = file("nix/tailscale.nix")
-    tailscale_tailnet_key = tailscale_tailnet_key.prod.key
+
+data "cloudinit_config" "provision" {
+  gzip          = false
+  base64_encode = false
+
+  part {
+    content_type = "text/cloud-config"
+    content      = templatefile("${path.module}/cloud-init/setup.cfg.tftpl", {})
+  }
+
+  part {
+    content_type = "text/cloud-config"
+    content = templatefile("${path.module}/cloud-init/infect.cfg.tftpl",
+      {
+        host_file             = file("nix/host.nix")
+        tailscale_file        = file("nix/tailscale.nix")
+        tailscale_tailnet_key = tailscale_tailnet_key.prod.key
+      }
+    )
   }
 }
 
@@ -71,7 +84,7 @@ resource "hcloud_server" "node" {
   datacenter   = "ash-dc1"
   server_type  = "cpx11"
   firewall_ids = [hcloud_firewall.firewall.id]
-  user_data    = data.template_file.user_data.rendered
+  user_data    = data.cloudinit_config.provision.rendered
 }
 
 resource "hcloud_volume" "data" {

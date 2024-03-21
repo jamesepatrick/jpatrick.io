@@ -1,0 +1,23 @@
+#cloud-config
+write_files:
+- path: /etc/nixos/host.nix
+  permissions: '0644'
+  encoding: base64
+  content: ${base64encode(host_file)}
+- path: /etc/nixos/tailscale.nix
+  permissions: '0644'
+  encoding: base64
+  content: ${base64encode(tailscale_file)}
+- path: /etc/NIXOS_LUSTRATE
+  permissions: '0600'
+  content: |
+    /etc/tailscale/authkey
+  append: true
+- path: /etc/tailscale/authkey
+  permissions: '0600'
+  content: "${tailscale_tailnet_key}"
+runcmd:
+  - >
+    curl https://raw.githubusercontent.com/elitak/nixos-infect/master/nixos-infect
+    | PROVIDER=hetznercloud NIXOS_IMPORT=./host.nix NIX_CHANNEL=nixos-unstable bash 2>&1
+    | tee /tmp/infect.log

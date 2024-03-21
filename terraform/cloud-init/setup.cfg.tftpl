@@ -1,0 +1,30 @@
+#cloud-config
+write_files:
+- path: /opt/disk_setup.sh
+  permissions: '0755'
+  content: |
+    #!/bin/bash
+    [ ! -e /dev/sdb ] && ( echo "Cannot find mount. Aborting." ; exit 1 )
+    # unmount if mounted. Ubuntu will try to automount everything.
+    umount /dev/sdb 2>&1 >/dev/null
+    # Format as EXT4 if not already so.
+    if [[ "$(blkid /dev/sdb)" != *'TYPE="ext4"'* ]] ; then
+      mkfs.ext4 -F /dev/sdb
+    fi
+    # Name volume
+    if [[ "$(e2label /dev/sdb )" != 'data' ]] ; then
+      e2label /dev/sdb data
+    fi
+runcmd:
+  - /opt/disk_setup.sh
+users:
+  - default
+  - name: terraform
+    # we may need to ssh into the machine in the case that the infection failed.
+    gecos: terraform
+    group: terraform
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    ssh_import_id:
+      - gh:jamesepatrick
+    lock_passwd: false
