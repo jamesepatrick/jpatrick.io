@@ -95,3 +95,7 @@ resource "hcloud_volume" "data" {
   format            = "ext4"
   delete_protection = true
 }
+
+output "node_ip" {
+  value = hcloud_floating_ip.primary_ip.ip_address
+}
