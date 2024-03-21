@@ -63,15 +63,15 @@ data "cloudinit_config" "provision" {
 
   part {
     content_type = "text/cloud-config"
-    content      = templatefile("${path.module}/cloud-init/setup.cfg.tftpl", {})
+    content      = templatefile("${path.module}/../cloud-init/setup.cfg.tftpl", {})
   }
 
   part {
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/cloud-init/infect.cfg.tftpl",
+    content = templatefile("${path.module}/../cloud-init/infect.cfg.tftpl",
       {
-        host_file             = file("nix/host.nix")
-        tailscale_file        = file("nix/tailscale.nix")
+        host_file             = file("${path.module}/../nix/host.nix")
+        tailscale_file        = file("${path.module}/../nix/tailscale.nix")
         tailscale_tailnet_key = tailscale_tailnet_key.prod.key
       }
     )
