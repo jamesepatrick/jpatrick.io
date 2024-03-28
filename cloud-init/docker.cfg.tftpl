@@ -1,0 +1,20 @@
+#cloud-config
+write_files:
+- path: /tmp/docker.zip
+  permissions: '0644'
+  encoding: base64
+  content: ${docker_zip}
+- path: /etc/nixos/docker.nix
+  permissions: '0644'
+  encoding: base64
+  content: ${base64encode(docker_nix)}
+- path: /etc/NIXOS_LUSTRATE
+  permissions: '0600'
+  content: |
+    /opt/infrastructure
+  append: true
+package_update: true
+packages:
+  - unzip
+runcmd:
+  - unzip /tmp/docker.zip -d /opt/infrastructure

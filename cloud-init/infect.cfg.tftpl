@@ -3,11 +3,11 @@ write_files:
 - path: /etc/nixos/host.nix
   permissions: '0644'
   encoding: base64
-  content: ${base64encode(host_file)}
+  content: ${base64encode(host_nix)}
 - path: /etc/nixos/tailscale.nix
   permissions: '0644'
   encoding: base64
-  content: ${base64encode(tailscale_file)}
+  content: ${base64encode(tailscale_nix)}
 - path: /etc/NIXOS_LUSTRATE
   permissions: '0600'
   content: |

@@ -7,12 +7,12 @@ let
   };
 in {
 
-  imports = [ ./tailscale.nix ];
+  imports = [ ./tailscale.nix ./docker.nix ];
 
   users.users = {
     "nix" = {
       description = "nix";
-      extraGroups = [ "wheel" "systemd-journal" "docker" ];
+      extraGroups = [ "wheel" "systemd-journal" ];
       isNormalUser = true;
       shell = pkgs.zsh;
       openssh.authorizedKeys.keyFiles = [ publicKey ];
@@ -29,14 +29,8 @@ in {
     };
   };
 
-  virtualisation.docker = {
-    enable = true;
-    autoPrune.enable = true;
-  };
-
   # Quality of life basic tooling
   environment.systemPackages = with pkgs; [
-    docker-compose
     file
     fzf
     git

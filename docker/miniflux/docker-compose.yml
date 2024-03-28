@@ -1,0 +1,33 @@
+---
+version: "2.20"
+
+services:
+  miniflux_db:
+    image: postgres:13
+    restart: always
+    volumes:
+      - "/var/lib/miniflux/postgres:/var/lib/postgresql/data"
+    env_file:
+      - "./db.env"
+    networks:
+      - miniflux
+
+  miniflux:
+    image: miniflux/miniflux:latest
+    restart: always
+    depends_on:
+      - miniflux_db
+    networks:
+      - miniflux
+    ports:
+      - "8998:8080"
+    env_file:
+      - "./app.env"
+      - "./db.env"
+    environment:
+      - "RUN_MIGRATIONS=1"
+      - "CREATE_ADMIN=1"
+
+networks:
+  miniflux:
+    driver: bridge
