@@ -16,7 +16,7 @@ provider "tailscale" {
 }
 
 resource "tailscale_tailnet_key" "prod" {
-  reusable      = false
+  reusable      = true
   ephemeral     = false
   preauthorized = true
   tags          = ["tag:prod"]
