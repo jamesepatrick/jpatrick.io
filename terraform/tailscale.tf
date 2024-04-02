@@ -1,14 +1,6 @@
-variable "tailscale_token" {
-  sensitive   = true
-  type        = string
-  description = "API token to access Hetzner's Cloud resources."
-}
-
-variable "tailscale_tailnet" {
-  sensitive   = true
-  type        = string
-  description = "API token to access Hetzner's Cloud resources."
-}
+# Also see
+# - ./cloud-init.tf
+# - ../nix/tailscale.nix
 
 provider "tailscale" {
   api_key = var.tailscale_token
@@ -16,7 +8,7 @@ provider "tailscale" {
 }
 
 resource "tailscale_tailnet_key" "prod" {
-  reusable      = true
+  reusable      = false
   ephemeral     = false
   preauthorized = true
   tags          = ["tag:prod"]

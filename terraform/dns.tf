@@ -1,23 +1,3 @@
-variable "namecheap_key" {
-  type        = string
-  description = "Your Namecheap key"
-}
-
-variable "namecheap_user" {
-  type        = string
-  description = "The name of the Namecheap user"
-}
-
-variable "protonmail_verification" {
-  type        = string
-  description = "Verification code for Protonmail"
-}
-
-variable "protonmail_dkim" {
-  type        = string
-  description = "Your Protonmail DKIM public key"
-}
-
 # If you are connecting from a new IP you may need setup a new whitelist IP
 # https://ap.www.namecheap.com/settings/tools/apiaccess/whitelisted-ips
 data "http" "external_ip" {
@@ -73,12 +53,10 @@ resource "namecheap_domain_records" "jpatrick-io" {
   }
 }
 
-
 resource "namecheap_domain_records" "jpatrick-io-mail" {
   domain     = "jpatrick.io"
   mode       = "MERGE"
   email_type = "MX"
-
   record {
     hostname = "@"
     type     = "MX"
