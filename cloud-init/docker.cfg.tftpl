@@ -1,5 +1,9 @@
 #cloud-config
 write_files:
+- path: /etc/infrastructure/miniflux.env
+  permissions: '0644'
+  encoding: base64
+  content: ${base64encode(miniflux_env)}
 - path: /tmp/docker.zip
   permissions: '0644'
   encoding: base64
@@ -12,6 +16,7 @@ write_files:
   permissions: '0600'
   content: |
     /opt/infrastructure
+    /etc/infrastructure
   append: true
 package_update: true
 packages:

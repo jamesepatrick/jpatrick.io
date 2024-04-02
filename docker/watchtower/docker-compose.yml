@@ -1,0 +1,10 @@
+version: "2.20"
+
+services:
+  watchtower:
+    environment:
+      - WATCHTOWER_CLEANUP=true
+    image: containrrr/watchtower
+    restart: always
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"

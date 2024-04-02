@@ -6,28 +6,24 @@ services:
     image: postgres:13
     restart: always
     volumes:
-      - "/var/lib/miniflux/postgres:/var/lib/postgresql/data"
+      - "/data/miniflux/postgres:/var/lib/postgresql/data"
     env_file:
-      - "./db.env"
-    networks:
-      - miniflux
+      - "/etc/infrastructure/miniflux.env"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "miniflux"]
+      interval: 3s
+      start_period: 5s
 
   miniflux:
     image: miniflux/miniflux:latest
     restart: always
     depends_on:
-      - miniflux_db
-    networks:
-      - miniflux
+      miniflux_db:
+        condition: service_healthy
     ports:
       - "8998:8080"
     env_file:
-      - "./app.env"
-      - "./db.env"
+      - "/etc/infrastructure/miniflux.env"
     environment:
       - "RUN_MIGRATIONS=1"
       - "CREATE_ADMIN=1"
-
-networks:
-  miniflux:
-    driver: bridge

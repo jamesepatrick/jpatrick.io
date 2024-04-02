@@ -1,5 +1,4 @@
 { pkgs, ... }: {
-
   users.users."nix".extraGroups = [ "docker" ];
 
   virtualisation.docker = {
