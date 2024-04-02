@@ -2,13 +2,13 @@ op-inject:
     op inject -i ./terraform.tfvars.templ -o ./terraform.tfvars --force
 
 op-load-state:
-    op document get --vault jpatrick.io terraform.tfstate -o ./terraform.tfstate --force
+    op document get --vault infrastructure terraform.tfstate -o ./terraform.tfstate --force
 
 op-save-state:
-    op document edit --vault jpatrick.io terraform.tfstate ./terraform.tfstate
+    op document edit --vault infrastructure terraform.tfstate ./terraform.tfstate
 
 op-init-state:
-    op document create --vault jpatrick.io ./terraform.tfstate
+    op document create --vault infrastructure ./terraform.tfstate
 
 init: op-inject op-load-state
     terraform init -var-file=terraform.tfvars
