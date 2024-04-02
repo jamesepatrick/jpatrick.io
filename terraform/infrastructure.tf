@@ -59,7 +59,7 @@ resource "hcloud_server" "node" {
 
 resource "hcloud_volume" "data" {
   name              = "data"
-  size              = 10 #size in GB. Min is 10
+  size              = 30 #size in GB. Min is 10
   server_id         = hcloud_server.node.id
   automount         = true
   format            = "ext4"
