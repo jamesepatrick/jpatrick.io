@@ -21,6 +21,12 @@ This Terraform configuration is designed to provision and manage infrastructure 
 
 [1Password](1password.com) is a multi-platform password manager made by AgileBits Inc. All access credentials are store in a single purpose vault. Access to the vault can be granted either by [1Password's CLI tool `op`](https://developer.1password.com/docs/cli/) or using [Service Accounts](https://developer.1password.com/docs/service-accounts/get-started/#create-a-service-account). 
 
+## ProtonMail
+
+I use [ProtonMail](http://protonmail.com/) for my mail provider of choice. Fastmail would be my first choice, if it was located pretty much anywhere but Australia. 
+
+ProtonMail does not offer IMAP due to its designed. Instead you need to either user there App, or use a "Proton Bridge" to create a local IMAP.
+
 # Prerequistics
 
 Before using this Terraform configuration, ensure you have the following
