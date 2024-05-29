@@ -1,14 +1,3 @@
-
-variable "namecheap_key" {
-  type        = string
-  description = "Your Namecheap key"
-}
-
-variable "namecheap_user" {
-  type        = string
-  description = "The name of the Namecheap user"
-}
-
 variable "protonmail_verification" {
   type        = string
   description = "Verification code for Protonmail"
@@ -72,4 +61,14 @@ variable "miniflux_db_pass" {
   sensitive   = true
   type        = string
   description = "miniflux postgres database passphrase"
+}
+
+variable "porkbun_api_key" {
+  type        = string
+  description = "api key for DNS provider Porkbun"
+}
+
+variable "porkbun_secret_key" {
+  type        = string
+  description = "secret key to be used in parallel with porkbun_api_key for DNS provider Porkbun"
 }

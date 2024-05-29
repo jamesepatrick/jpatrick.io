@@ -5,9 +5,9 @@ terraform {
       source  = "integrations/github"
       version = "~> 5.0"
     }
-    namecheap = {
-      source  = "namecheap/namecheap"
-      version = ">= 2.0.0"
+    porkbun = {
+      source  = "cullenmcdermott/porkbun"
+      version = ">= 0.2.5"
     }
     hcloud = {
       source  = "hetznercloud/hcloud"
