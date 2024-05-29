@@ -4,6 +4,7 @@ provider "github" {
 }
 
 resource "github_repository" "repository" {
+  has_issues = false
   name       = var.github_name
   visibility = "public"
 }
