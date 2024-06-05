@@ -8,37 +8,50 @@ provider "porkbun" {
   api_key    = var.porkbun_api_key
   secret_key = var.porkbun_secret_key
 }
+resource "porkbun_dns_record" "node0" {
+  name    = "node0"
+  domain  = "jpatrick.io"
+  type    = "A"
+  content = "159.89.245.134"
+}
+
+resource "porkbun_dns_record" "node" {
+  name    = hcloud_server.node.name
+  domain  = "jpatrick.io"
+  type    = "A"
+  content = hcloud_server.node.ipv4_address
+}
 
 resource "porkbun_dns_record" "root" {
   name    = "@"
   domain  = "jpatrick.io"
-  type    = "A"
-  content = "159.89.245.134"
+  type    = "CNAME"
+  content = "node0.jpatrick.io"
 }
 
 resource "porkbun_dns_record" "cloud" {
   name    = "cloud"
   domain  = "jpatrick.io"
-  type    = "A"
-  content = "159.89.245.134"
+  type    = "CNAME"
+  content = "node0.jpatrick.io"
 }
 resource "porkbun_dns_record" "git" {
   name    = "git"
   domain  = "jpatrick.io"
-  type    = "A"
-  content = "159.89.245.134"
+  type    = "CNAME"
+  content = "node0.jpatrick.io"
 }
 resource "porkbun_dns_record" "pops" {
   name    = "pops"
   domain  = "jpatrick.io"
-  type    = "A"
-  content = "159.89.245.134"
+  type    = "CNAME"
+  content = "node0.jpatrick.io"
 }
 resource "porkbun_dns_record" "rss" {
   name    = "rss"
   domain  = "jpatrick.io"
-  type    = "A"
-  content = "159.89.245.134"
+  type    = "CNAME"
+  content = "node0.jpatrick.io"
 }
 resource "porkbun_dns_record" "rss2" {
   name    = "rss2"
