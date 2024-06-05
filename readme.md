@@ -4,9 +4,9 @@ This Terraform configuration is designed to provision and manage infrastructure 
 
 # Externally Managed Services
 
-## Namecheap
+## Porkbun
 
-[Namecheap](https://www.namecheap.com/) is my current domain name registrar & domain name manager. For this context of this project I only own the `jpatrick.io` domain name.
+[Porkbun](https://www.porkbun.com/) is my current domain name registrar & domain name manager. For this context of this project I only own the `jpatrick.io` domain name.
 
 ## Hetzner Cloud
 
@@ -31,9 +31,9 @@ ProtonMail does not offer IMAP due to its designed. Instead you need to either u
 
 Before using this Terraform configuration, ensure you have the following
 
-* Access credentials for all provider services (e.g. Namecheap, Hetzner, etc). A full list can be found in `terraform/terraform.tfvars.templ` file.
+* Access credentials for all provider services (e.g. DNS, VPS, etc). A full list can be found in `terraform/terraform.tfvars.templ` file.
 * The following software must be installed on your local machine
-  * [Terraform](https://www.terraform.io/)[^1]
+  * [Terraform](https://www.terraform.io/)
   * [Just](https://github.com/casey/just)
   * [1Password CLI](https://developer.1password.com/docs/cli/)
 
@@ -76,10 +76,10 @@ infrastructure
 TLDR
 
 1. Clone this repository to your local machine.
-1. `cd` into repository.
-2. Run `just terraform/init` to initialize the working terraform directory.
-3. Run `just terraform/plan` to preview changes Terraform will make.
-4. Run `just terraform/apply` to apply all changes.
+2. `cd` into repository.
+3. Run `just terraform/init` to initialize the working terraform directory.
+4. Run `just terraform/plan` to preview changes Terraform will make.
+5. Run `just terraform/apply` to apply all changes.
 
 ## Just 
 
@@ -140,5 +140,3 @@ This Terraform configuration is provided as-is, without any warranties or guaran
 # License
 
 This project is licensed under the MIT License. Feel free to modify and distribute it as needed.
-
-[^1]: Namecheap implemented IP Allowlisting for allowed clients in 2021. CI pipelines like GitHub Actions query or modify the DNS records. 
