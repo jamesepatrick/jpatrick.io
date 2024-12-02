@@ -54,6 +54,7 @@ resource "hcloud_server" "node" {
   server_type  = "cpx11"
   firewall_ids = [hcloud_firewall.firewall.id]
   user_data    = data.cloudinit_config.provision.rendered
+  ssh_keys     = data.github_ssh_keys.public_keys.keys
 }
 
 resource "hcloud_volume" "data" {

@@ -8,3 +8,5 @@ resource "github_repository" "repository" {
   name       = var.github_name
   visibility = "public"
 }
+
+data "github_ssh_keys" "public_keys" {}
