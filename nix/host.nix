@@ -6,7 +6,6 @@ let
     sha256 = "sha256-VGdWnlzD11L8fjoN/etmV50nHr5xrIP91BGV7x0Otks=";
   };
 in {
-
   imports = [ ./tailscale.nix ./docker.nix ];
 
   users.users = {
@@ -67,7 +66,10 @@ in {
     useNetworkd = true;
     useDHCP = true;
   };
+
   security.sudo.wheelNeedsPassword = false;
+
+  system.autoUpgrade.enable = true;
   systemd = {
     network.wait-online.enable = false;
     services = {
