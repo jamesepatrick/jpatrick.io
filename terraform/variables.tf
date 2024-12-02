@@ -65,10 +65,12 @@ variable "miniflux_db_pass" {
 
 variable "porkbun_api_key" {
   type        = string
+  sensitive   = true
   description = "api key for DNS provider Porkbun"
 }
 
 variable "porkbun_secret_key" {
   type        = string
+  sensitive   = true
   description = "secret key to be used in parallel with porkbun_api_key for DNS provider Porkbun"
 }
