@@ -22,9 +22,10 @@ users:
   - name: terraform
     # we may need to ssh into the machine in the case that the infection failed.
     gecos: terraform
-    group: terraform
+    primary_group: terraform
     sudo: ALL=(ALL) NOPASSWD:ALL
     groups: users, admin
+    shell: /bin/bash
     ssh_import_id:
       - gh:jamesepatrick
     lock_passwd: false
