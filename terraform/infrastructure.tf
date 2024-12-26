@@ -49,9 +49,10 @@ resource "hcloud_firewall" "firewall" {
 
 resource "hcloud_server" "node" {
   name         = "node"
-  image        = "ubuntu-22.04"
+  image        = "ubuntu-24.04"
   datacenter   = "ash-dc1"
   server_type  = "cpx11"
+  backups      = false
   firewall_ids = [hcloud_firewall.firewall.id]
   user_data    = data.cloudinit_config.provision.rendered
   ssh_keys     = data.github_ssh_keys.public_keys.keys

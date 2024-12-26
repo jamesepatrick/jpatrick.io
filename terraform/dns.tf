@@ -8,6 +8,7 @@ provider "porkbun" {
   api_key    = var.porkbun_api_key
   secret_key = var.porkbun_secret_key
 }
+
 resource "porkbun_dns_record" "node0" {
   name    = "node0"
   domain  = "jpatrick.io"
@@ -20,6 +21,12 @@ resource "porkbun_dns_record" "node" {
   domain  = "jpatrick.io"
   type    = "A"
   content = hcloud_server.node.ipv4_address
+}
+resource "porkbun_dns_record" "audiobooks" {
+  name    = "audiobooks"
+  domain  = "jpatrick.io"
+  type    = "CNAME"
+  content = "node.jpatrick.io"
 }
 
 resource "porkbun_dns_record" "root" {
