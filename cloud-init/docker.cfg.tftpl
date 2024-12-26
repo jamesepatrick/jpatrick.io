@@ -4,6 +4,10 @@ write_files:
   permissions: '0644'
   encoding: base64
   content: ${base64encode(miniflux_env)}
+- path: /etc/infrastructure/nextcloud.env
+  permissions: '0644'
+  encoding: base64
+  content: ${base64encode(nextcloud_env)}
 - path: /tmp/docker.zip
   permissions: '0644'
   encoding: base64

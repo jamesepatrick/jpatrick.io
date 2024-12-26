@@ -74,3 +74,48 @@ variable "porkbun_secret_key" {
   sensitive   = true
   description = "secret key to be used in parallel with porkbun_api_key for DNS provider Porkbun"
 }
+
+variable "nextcloud_admin_user" {
+  type        = string
+  description = "Username for Nextcloud's Admin User"
+}
+variable "nextcloud_admin_pass" {
+  type        = string
+  description = "Username for Nextcloud's Admin User"
+}
+
+variable "nextcloud_db_user" {
+  type        = string
+  description = "Postgres user for Nextcloud"
+}
+
+variable "nextcloud_db_pass" {
+  type        = string
+  sensitive   = true
+  description = "Password for Postgres user for Nextcloud. See nextcloud_db_user"
+}
+
+variable "nextcloud_r2_access_key" {
+  type        = string
+  sensitive   = true
+  description = "S3 Type Access Key for CloudFlare R2 Object Storage"
+}
+variable "nextcloud_r2_bucket" {
+  type        = string
+  description = "S3 Type bucket for CloudFlare R2 Object Storage"
+}
+variable "nextcloud_r2_hostname" {
+  type        = string
+  description = "S3 Type hostname for CloudFlare R2 Object Storage"
+}
+variable "nextcloud_r2_secret_access_key" {
+  type        = string
+  sensitive   = true
+  description = "S3 Type secret key for CloudFlare R2 Object Storage"
+}
+
+variable "nextcloud_sse_key" {
+  type        = string
+  sensitive   = true
+  description = "S3 SSE-C encryption key"
+}

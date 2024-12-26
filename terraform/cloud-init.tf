@@ -7,6 +7,21 @@ locals {
       "POSTGRES_USER=${var.miniflux_db_user}",
       "POSTGRES_PASSWORD=${var.miniflux_db_pass}",
   ])
+  nextcloud_env = join("\n",
+    [
+      "NEXTCLOUD_ADMIN_USER=${var.nextcloud_admin_user}",
+      "NEXTCLOUD_ADMIN_PASSWORD=${var.nextcloud_admin_pass}",
+      "NEXTCLOUD_TRUSTED_DOMAINS='cloud.jpatrick.io'",
+      "POSTGRES_USER=${var.nextcloud_db_user}",
+      "POSTGRES_DB=${var.nextcloud_db_user}",
+      "POSTGRES_PASSWORD=${var.nextcloud_db_pass}",
+      "OBJECTSTORE_S3_BUCKET=${var.nextcloud_r2_bucket}",
+      "OBJECTSTORE_S3_HOST=${var.nextcloud_r2_hostname}",
+      "OBJECTSTORE_S3_KEY=${var.nextcloud_r2_access_key}",
+      "OBJECTSTORE_S3_SECRET=${var.nextcloud_r2_secret_access_key}",
+      "OBJECTSTORE_S3_USEPATH_STYLE=true",
+      "OBJECTSTORE_S3_SSE_C_KEY=${var.nextcloud_sse_key}",
+  ])
 }
 
 data "archive_file" "docker-files" {
@@ -27,9 +42,10 @@ data "cloudinit_config" "provision" {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/../cloud-init/docker.cfg.tftpl",
       {
-        docker_zip   = filebase64(data.archive_file.docker-files.output_path)
-        docker_nix   = file("${path.module}/../nix/docker.nix")
-        miniflux_env = local.miniflux_env
+        docker_zip    = filebase64(data.archive_file.docker-files.output_path)
+        docker_nix    = file("${path.module}/../nix/docker.nix")
+        miniflux_env  = local.miniflux_env
+        nextcloud_env = local.nextcloud_env
       }
     )
     merge_type = "list(append)+dict(recurse_list)+str(append)"

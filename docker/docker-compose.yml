@@ -5,3 +5,4 @@ include:
   - watchtower/docker-compose.yml
   - web/docker-compose.yml
   - miniflux/docker-compose.yml
+  - nextcloud/docker-compose.yml

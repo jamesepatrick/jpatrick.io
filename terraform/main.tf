@@ -9,6 +9,10 @@ terraform {
       source  = "cullenmcdermott/porkbun"
       version = ">= 0.2.5"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "5.0.0-alpha1"
+    }
     hcloud = {
       source  = "hetznercloud/hcloud"
       version = "1.44.1"

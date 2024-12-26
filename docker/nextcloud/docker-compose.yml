@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  nextcloud_db:
+    container_name: "nextcloud_db"
+    image: postgres:13
+    restart: always
+    volumes:
+      - "/data/nextcloud/postgres:/var/lib/postgresql/data"
+    env_file:
+      - "/etc/infrastructure/nextcloud.env"
+    healthcheck:
+      test: pg_isready -U myuser -d db_prod
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  nextcloud:
+    build: .
+    container_name: "nextcloud"
+    image: nextcloud:latest
+    restart: always
+    depends_on:
+      - nextcloud_db
+    volumes:
+      - "/data/nextcloud/nextcloud:/var/www/html"
+    ports:
+      - "8089:80"
+    env_file:
+      - "/etc/infrastructure/nextcloud.env"
+    environment:
+      - "POSTGRES_HOST=nextcloud_db"
+      - "TRUSTED_PROXIES=172.18.0.0/16"

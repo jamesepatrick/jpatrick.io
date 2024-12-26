@@ -1,4 +1,8 @@
 
+cloud2.jpatrick.io {
+  reverse_proxy nextcloud:80
+}
+
 audiobooks.jpatrick.io {
   reverse_proxy soma:13378
 }
